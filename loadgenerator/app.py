@@ -24,11 +24,15 @@ def place_order():
         logger.error("[loadgenerator] Request error: %s", e)
 
 
+RUNTIME_SECONDS = 5 * 60
+
 if __name__ == "__main__":
-    logger.info("[loadgenerator] Starting — sending 1-10 orders every 5-10 seconds")
-    while True:
+    logger.info("[loadgenerator] Starting — sending 1-10 orders every 5-10 seconds for %d minutes", RUNTIME_SECONDS // 60)
+    start_time = time.time()
+    while time.time() - start_time < RUNTIME_SECONDS:
         batch_size = random.randint(1, 10)
         logger.info("[loadgenerator] Sending batch of %d order(s)", batch_size)
         for _ in range(batch_size):
             place_order()
         time.sleep(random.uniform(5, 10))
+    logger.info("[loadgenerator] Runtime of %d minutes reached — shutting down", RUNTIME_SECONDS // 60)
