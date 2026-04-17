@@ -1,0 +1,34 @@
+import requests
+import random
+import time
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+FRONTEND_URL = "http://localhost:5000"
+
+
+def place_order():
+    try:
+        resp = requests.post(f"{FRONTEND_URL}/order", timeout=10)
+        data = resp.json()
+        if data.get("status") == "success":
+            order_id = data.get("order", {}).get("order_id", "?")
+            eta = data.get("delivery", {}).get("eta", "?")
+            logger.info("[loadgenerator] Order %s placed successfully — ETA %s", order_id, eta)
+        else:
+            error = data.get("order", {}).get("error", "unknown")
+            logger.warning("[loadgenerator] Order failed: %s", error)
+    except requests.exceptions.RequestException as e:
+        logger.error("[loadgenerator] Request error: %s", e)
+
+
+if __name__ == "__main__":
+    logger.info("[loadgenerator] Starting — sending 1-10 orders every 5-10 seconds")
+    while True:
+        batch_size = random.randint(1, 10)
+        logger.info("[loadgenerator] Sending batch of %d order(s)", batch_size)
+        for _ in range(batch_size):
+            place_order()
+        time.sleep(random.uniform(5, 10))
