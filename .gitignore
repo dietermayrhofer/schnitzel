@@ -7,3 +7,7 @@ orderschnitzel-s-order.log
 .gitignore
 orderschnitzel-s-frontend.log
 .DS_Store
+schnitzel-delivery.log
+schnitzel-frontend.log
+schnitzel-loadgenerator.log
+schnitzel-order.log
