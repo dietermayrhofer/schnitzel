@@ -17,8 +17,8 @@ def heartbeat():
 
 threading.Thread(target=heartbeat, daemon=True).start()
 
-ORDER_SERVICE_URL = os.getenv("ORDER_SERVICE_URL", "http://localhost:5001")
-DELIVERY_SERVICE_URL = os.getenv("DELIVERY_SERVICE_URL", "http://localhost:5002")
+ORDER_SERVICE_URL = os.getenv("ORDER_SERVICE_URL", "http://localhost:8081")
+DELIVERY_SERVICE_URL = os.getenv("DELIVERY_SERVICE_URL", "http://localhost:8082")
 
 
 @app.route("/")
@@ -68,4 +68,4 @@ def place_order():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False, use_reloader=False)
+    app.run(host="0.0.0.0", port=8080, debug=False, use_reloader=False)

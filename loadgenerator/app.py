@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-FRONTEND_URL = "http://localhost:5000"
+FRONTEND_URL = "http://localhost:8080"
 
 
 def place_order():
